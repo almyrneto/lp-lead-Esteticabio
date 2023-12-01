@@ -1,13 +1,17 @@
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
+import { colors } from "../../theme";
 
 export const GlobalStyle = createGlobalStyle`
     * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-`
-
-export const Container = styled.div`
     
+    body, html, button, input, select {
+        font-family: 'Montserrat';
+    }
+    body {
+        background: ${colors.secundaria};
+    } 
+}
 `
