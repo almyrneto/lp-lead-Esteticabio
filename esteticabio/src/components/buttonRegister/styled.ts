@@ -11,5 +11,5 @@ export const ButtonRegisterStyle = styled.button`
     color: ${colors.branco};
     font-weight: 600;
     font-size: 16px;
-
+    cursor: pointer;
 `

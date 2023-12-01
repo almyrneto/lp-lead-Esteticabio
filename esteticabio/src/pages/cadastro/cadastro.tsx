@@ -11,19 +11,30 @@ import {
     Container2,
     ContainerCheckbox,
     ContainerRegister,
-    InputCepNumber
+    ContentLogo,
+    InputCepNumber,
+    Title,
+    Title2
 } from './styled'
+import Confirmed from '../../assets/icons/Confirmed'
 
 export const Cadastro = () => {
 
     const [showRegister, setShowRegister] = useState(true)
     const [showDateProfissional, setShowDateProfissional] = useState(false)
-    const teste1 = () => {
+    const [showRegisterConfirmed, setShowRegisterConfirmed] = useState(false)
+
+    const HandleSubmitNext = () => {
         setShowDateProfissional(true)
         setShowRegister(false)
     }
-    const teste2 = () => {
+    const HandleSubmitBack = () => {
         setShowRegister(true)
+        setShowDateProfissional(false)
+    }
+
+    const HandleSubmitRegister = () => {
+        setShowRegisterConfirmed(true)
         setShowDateProfissional(false)
     }
 
@@ -51,18 +62,30 @@ export const Cadastro = () => {
                             <Input placeholder='Nº' type='text' width='178px' />
                         </InputCepNumber>
                     </ContainerRegister>
-                    <ButtonsNextBack name={'Continuar'} iconNext onClick={teste1} />
+                    <ButtonsNextBack name={'Continuar'} iconNext onClick={HandleSubmitNext} />
                 </Container2>
             }
             {showDateProfissional &&
                 <Container2>
                     <ContainerRegister>
                         <Logo />
-                        <ButtonsNextBack name={'Voltar'} iconBack onClick={teste2} />
+                        <ButtonsNextBack name={'Voltar'} iconBack onClick={HandleSubmitBack} />
                         <Input placeholder='Profissão' type='text' width='400px' />
                         <Input placeholder='Categoria' type='text' width='400px' />
                         <textarea placeholder='Observação' />
-                        <ButtonRegister name='Cadastrar-se' />
+                        <ButtonRegister name='Cadastrar-se' onClick={HandleSubmitRegister} />
+                    </ContainerRegister>
+                </Container2>
+            }
+            {showRegisterConfirmed &&
+                <Container2>
+                    <ContainerRegister>
+                        <ContentLogo>
+                            <Logo />
+                        </ContentLogo>
+                        <Title>Obrigada por se cadastrar!</Title>
+                        <Title2>Entraremos em contato assim que possivel.</Title2>
+                        <Confirmed />
                     </ContainerRegister>
                 </Container2>
             }

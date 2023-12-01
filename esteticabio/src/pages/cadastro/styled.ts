@@ -57,3 +57,18 @@ export const ContainerCheckbox = styled.div`
     gap: 3rem;
 `
 
+export const ContentLogo = styled.div`
+    margin-bottom: 15rem;
+`
+
+export const Title = styled.p`
+    font-weight: 700;
+    font-size: 24px;
+    color: ${colors.cinza6};
+`
+
+export const Title2 = styled.p`
+    font-weight: 700;
+    font-size: 20px;
+    color: ${colors.cinza7};
+`

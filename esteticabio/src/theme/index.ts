@@ -7,6 +7,7 @@ export const colors = {
     cinza4: '#464646',
     cinza5: '#212121',
     cinza6: '#555555',
+    cinza7: '#909090',
     branco: '#FFFFFF',
     boxshadow: '0px 15px 35px 0px #D0D0D033',
 } 

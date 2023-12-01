@@ -2,13 +2,14 @@ import { ButtonRegisterStyle } from "./styled"
 
 type ButtonRegisterProps = {
     name: string,
+    onClick?: () => void
 }
 
-export const ButtonRegister = ({ name }: ButtonRegisterProps) => {
+export const ButtonRegister = ({ name, onClick }: ButtonRegisterProps) => {
 
     return (
         <div>
-            <ButtonRegisterStyle>
+            <ButtonRegisterStyle onClick={onClick}>
                 {name}
             </ButtonRegisterStyle>
         </div>
