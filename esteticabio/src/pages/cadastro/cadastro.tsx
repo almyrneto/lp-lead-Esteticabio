@@ -23,6 +23,10 @@ export const Cadastro = () => {
     const [showRegister, setShowRegister] = useState(true)
     const [showDateProfissional, setShowDateProfissional] = useState(false)
     const [showRegisterConfirmed, setShowRegisterConfirmed] = useState(false)
+    const [isPessoaFisicaChecked, setIsPessoaFisicaChecked] = useState(false)
+    const [isPessoaJuridicaChecked, setIsPessoaJuridicaChecked] = useState(false)
+    const [cpf, setCPF] = useState('')
+    const [cnpj, setCNPJ] = useState('')
 
     const HandleSubmitNext = () => {
         setShowDateProfissional(true)
@@ -38,6 +42,16 @@ export const Cadastro = () => {
         setShowDateProfissional(false)
     }
 
+    const handlePessoaFisicaChange = () => {
+        setIsPessoaFisicaChecked(true);
+        setIsPessoaJuridicaChecked(false)
+    }
+
+    const handlePessoaJuridicaChange = () => {
+        setIsPessoaJuridicaChecked(true);
+        setIsPessoaFisicaChecked(false)
+    }
+
     return (
         <Container>
             <div>
@@ -50,10 +64,15 @@ export const Cadastro = () => {
                         <Subtitulo texto="Faça parte da nossa jornada de beleza e explore" texto2='o melhor em estética conosco!' />
                         <Input placeholder='Nome' type='text' width='400px' />
                         <ContainerCheckbox>
-                            <CheckBox titulo='Pessoa Física' />
-                            <CheckBox titulo='Pessoa Jurídica' />
+                            <CheckBox titulo='Pessoa Física' onChange={handlePessoaFisicaChange} checked={isPessoaFisicaChecked} />
+                            <CheckBox titulo='Pessoa Jurídica' onChange={handlePessoaJuridicaChange} checked={isPessoaJuridicaChecked} />
                         </ContainerCheckbox>
-                        <Input placeholder='CPF' type='text' width='400px' />
+                        {isPessoaFisicaChecked && (
+                            <Input placeholder='CPF' type='text' value={cpf} onChange={(e) => setCPF(e.target.value)} width='400px' />
+                        )}
+                        {isPessoaJuridicaChecked && (
+                            <Input placeholder='CNPJ' type='text' value={cnpj} onChange={(e) => setCNPJ(e.target.value)} width='400px' />
+                        )}
                         <Input placeholder='E-mail' type='email' width='400px' />
                         <Input placeholder='Telefone' type='text' width='400px' />
                         <Input placeholder='Endereço' type='text' desabilitar background width='400px' />

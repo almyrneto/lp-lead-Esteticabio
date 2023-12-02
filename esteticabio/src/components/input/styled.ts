@@ -14,9 +14,14 @@ export const InputStyle = styled.input<{ width: string, background?: boolean }>`
     font-weight: 500;
     color: ${colors.cinza4};
 
+    
     &::placeholder{
         font-size: 14px;
         font-weight: 400;
         color: ${colors.cinza};
+    }
+
+    &:focus {
+        border-color: ${colors.verdePrincipal} !important;
     }
 `

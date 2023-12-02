@@ -9,5 +9,6 @@ export const colors = {
     cinza6: '#555555',
     cinza7: '#909090',
     branco: '#FFFFFF',
+    lightSurface: '#FFFBFF',
     boxshadow: '0px 15px 35px 0px #D0D0D033',
 } 

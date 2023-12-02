@@ -6,6 +6,8 @@ type InputProps = {
     desabilitar?: boolean
     width: string
     background?: boolean
+    value?: string,
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Input = ({
@@ -13,7 +15,10 @@ export const Input = ({
     placeholder,
     desabilitar,
     width,
-    background }: InputProps) => {
+    background,
+    value,
+    onChange,
+}: InputProps) => {
 
     return (
         <>
@@ -22,7 +27,10 @@ export const Input = ({
                 placeholder={placeholder}
                 disabled={desabilitar}
                 width={width}
-                background={background} />
+                background={background}
+                value={value}
+                onChange={onChange}
+            />
         </>
     )
 }
