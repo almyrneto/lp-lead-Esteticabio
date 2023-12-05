@@ -7,13 +7,14 @@ type ButtonsNextBackProps = {
     iconBack?: boolean
     iconNext?: boolean
     onClick?: () => void
+    disabled?: boolean
 }
 
-export const ButtonsNextBack = ({ name, iconBack, iconNext, onClick }: ButtonsNextBackProps) => {
+export const ButtonsNextBack = ({ name, iconBack, iconNext, onClick, disabled }: ButtonsNextBackProps) => {
 
     return (
         <>
-            <ButtonNextBackStyle type="button" onClick={onClick}>
+            <ButtonNextBackStyle type="button" onClick={onClick} disabled={disabled}>
                 {iconBack ? <ArrowLeft /> : ''}
                 {name}
                 {iconNext ? <ArrowRight /> : ''}

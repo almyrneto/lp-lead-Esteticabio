@@ -1,4 +1,6 @@
+import { useState } from "react"
 import { InputStyle } from "./styled"
+import { colors } from "../../theme"
 
 type InputProps = {
     type: string
@@ -6,8 +8,10 @@ type InputProps = {
     desabilitar?: boolean
     width: string
     background?: boolean
-    value?: string,
+    value?: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    isFocused?: boolean;
+    autoFill?: string;
 }
 
 export const Input = ({
@@ -18,7 +22,18 @@ export const Input = ({
     background,
     value,
     onChange,
+    autoFill,
 }: InputProps) => {
+
+    const [isFocused, setIsFocused] = useState(false)
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    }
+
+    const handleBlur = () => {
+        setIsFocused(false);
+    }
 
     return (
         <>
@@ -30,6 +45,35 @@ export const Input = ({
                 background={background}
                 value={value}
                 onChange={onChange}
+                style={{
+                    borderColor: isFocused ? colors.verdePrincipal : colors.cinza1,
+                }}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                autoComplete={autoFill ? 'off' : 'on'}
+            />
+        </>
+    )
+}
+
+export const CepInput = ({
+    type,
+    placeholder,
+    width,
+    background,
+    value,
+    onChange
+}: InputProps) => {
+
+    return (
+        <>
+            <Input
+                type={type}
+                placeholder={placeholder}
+                width={width}
+                onChange={onChange}
+                background={background}
+                value={value}
             />
         </>
     )

@@ -16,27 +16,7 @@ export const ContainerRegister = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-
-    textarea {
-        width: 400px;
-        height: 103px;
-        border-radius: 16px;
-        border: 1px solid ${colors.cinza1};
-        box-shadow: ${colors.boxshadow};
-        padding-left: 1rem;
-        font-size: 16px;
-        font-weight: 500;
-        color: ${colors.cinza4};
-        padding-top: 1rem;
-        resize: none;
-        &::placeholder{
-            font-size: 14px;
-            font-weight: 400;
-            color: ${colors.cinza};
-        }
-    }
-
-    `
+`
 
 export const Container2 = styled.div`
     display: flex;
@@ -48,7 +28,7 @@ export const Container2 = styled.div`
 
 export const InputCepNumber = styled.div`
     display: flex;
-    gap: 0.8rem;
+    gap: 0.5rem;
 `
 
 export const ContainerCheckbox = styled.div`
@@ -71,4 +51,18 @@ export const Title2 = styled.p`
     font-weight: 700;
     font-size: 20px;
     color: ${colors.cinza7};
+`
+
+export const ContainerButton = styled.div`
+    padding-right: 17rem;
+`
+
+export const ContainerInput = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const Container3 = styled.div`
+    position: relative;
+    right: 2rem;
 `
