@@ -24,7 +24,7 @@ const customStyles = {
         '&:focus': {
             borderColor: `${colors.verdePrincipal} !important`,
             boxShadow: `${colors.boxshadow} !important`,
-            outline: 'none',
+
         },
     }),
     placeholder: (provided: any) => ({
@@ -50,21 +50,22 @@ const customStyles = {
     }),
     option: (provided: any, state: any) => ({
         ...provided,
-        background: state.isSelected ? 'transparent' : state.isFocused ? 'transparent' : 'transparent',
+        background: state.isSelected ? `${colors.verdePrincipal}` : state.isFocused ? 'transparent' : 'transparent',
         '&:hover': {
             background: state.isSelected ? 'transparent' : `${colors.verdePrincipal}`,
         },
-        color: state.isSelected ? `${colors.cinza4}` : `${colors.cinza4}`,
+        color: state.isSelected ? `${colors.branco}` : `${colors.cinza4}`,
     }),
-    // applyButton: {
-    //     cursor: 'pointer',
-    //     color: `${colors.verdePrincipal}`,
-    //     fontWeight: '600',
-    //     fontSize: '14px',
-    //     textAlign: 'right',
-    //     background: 'none',
-    //     border: 'none',
-    // }
+    applyButton: {
+        cursor: 'pointer',
+        color: `${colors.verdePrincipal}`,
+        fontWeight: '600',
+        fontSize: '14px',
+        textAlign: 'right',
+        background: 'none',
+        border: 'none',
+        margin: '2rem',
+    }
 
 };
 
@@ -96,38 +97,38 @@ interface OptionType {
     label: string;
 }
 
-// type ApplyButtonProps = {
-//     innerProps: any,
-//     label: string,
-//     onSelect: () => void,
-// }
+type ApplyButtonProps = {
+    innerProps: any,
+    label: string,
+    onSelect: () => void,
+}
 
-// const ApplyButton = ({ innerProps, label, onSelect }: ApplyButtonProps) => {
-//     return (
-//         <div {...innerProps} style={customStyles.applyButton} onClick={onSelect}>
-//             {label}
-//         </div>
-//     )
-// }
+const ApplyButton = ({ innerProps, label, onSelect }: ApplyButtonProps) => {
+    return (
+        <div {...innerProps} style={customStyles.applyButton} onClick={onSelect}>
+            {label}
+        </div>
+    )
+}
 
-// const CustomMenu = (props: any) => {
-//     const { innerProps, children, selectProps } = props;
+const CustomMenu = (props: any) => {
+    const { innerProps, children, selectProps } = props;
 
-//     return (
-//         <div
-//             {...innerProps}
-//         >
-//             {children}
-//             <ApplyButton
-//                 innerProps={innerProps}
-//                 label="Aplicar"
-//                 onSelect={() => {
-//                     selectProps.onMenuClose()
-//                 }}
-//             />
-//         </div>
-//     )
-// }
+    return (
+        <div
+            {...innerProps}
+        >
+            {children}
+            <ApplyButton
+                innerProps={innerProps}
+                label="Aplicar"
+                onSelect={() => {
+                    selectProps.onMenuClose()
+                }}
+            />
+        </div>
+    )
+}
 
 
 const OptionCheckbox: React.FC<any> = ({ children, ...props }) => {
@@ -165,7 +166,7 @@ export const InputSelect = ({ placeholder }: InputSelectProps) => {
                 styles={customStyles}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                components={{ Option: OptionCheckbox }}
+                components={{ Option: OptionCheckbox, MenuList: CustomMenu }}
             />
         </StyledSelect>
 

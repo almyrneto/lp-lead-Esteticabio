@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from 'react'
 import Logo from '../../assets/icons/Logo'
 import Banner from '../../assets/img/banner.png'
 import { ButtonRegister } from '../../components/buttonRegister'
@@ -20,103 +19,50 @@ import {
     Title2
 } from './styled'
 import Confirmed from '../../assets/icons/Confirmed'
-import axios from 'axios'
 import { InputSelect } from '../../components/select'
 import { Textarea } from '../../components/textarea'
 import Asterisco from '../../assets/icons/Asterisco'
+import { UseCadastro } from './useCadastro'
+import { MaskedInput } from '../../components/maskedInput'
 
 export const Cadastro = () => {
+    const {
+        showRegister,
+        showDateProfissional,
+        showRegisterConfirmed,
+        isPessoaFisicaChecked,
+        isPessoaJuridicaChecked,
+        cpf,
+        setCPF,
+        cnpj,
+        setCNPJ,
+        nome,
+        setNome,
+        email,
+        setEmail,
+        telefone,
+        setTelefone,
+        endereço,
+        setEndereço,
+        cep,
+        setCep,
+        numero,
+        setNumero,
+        enderecoAutoPreenchido,
+        handleSubmitNext,
+        handleSubmitBack,
+        handleSubmitRegister,
+        handlePessoaFisicaChange,
+        handlePessoaJuridicaChange,
+        handleCepChange,
+        cadastrar,
 
-    const [showRegister, setShowRegister] = useState(true)
-    const [showDateProfissional, setShowDateProfissional] = useState(false)
-    const [showRegisterConfirmed, setShowRegisterConfirmed] = useState(false)
-    const [isPessoaFisicaChecked, setIsPessoaFisicaChecked] = useState(false)
-    const [isPessoaJuridicaChecked, setIsPessoaJuridicaChecked] = useState(false)
-    const [cpf, setCPF] = useState('')
-    const [cnpj, setCNPJ] = useState('')
-    const [nome, setNome] = useState('')
-    const [email, setEmail] = useState('')
-    const [telefone, setTelefone] = useState('')
-    const [endereço, setEndereço] = useState('')
-    const [cep, setCep] = useState('')
-    const [numero, setNumero] = useState('')
-    const [formCompleted, setFormCompleted] = useState(false)
-    const [enderecoAutoPreenchido, setEnderecoAutoPreenchido] = useState('')
+    } = UseCadastro()
 
-    const handleCepChange = async (e: ChangeEvent<HTMLInputElement>) => {
-        const cepValue = e.target.value
 
-        setCep(cepValue)
 
-        if (cepValue.length === 8) {
-            try {
-                const response = await axios.get(
-                    `https://viacep.com.br/ws/${cepValue}/json/`
-                )
-                const { logradouro, bairro, localidade, uf } = response.data
 
-                const enderecoCompleto = `${logradouro}, ${bairro}, ${localidade}, ${uf}`
-                setEnderecoAutoPreenchido(enderecoCompleto)
-
-                setEndereço(enderecoCompleto)
-            } catch (error) {
-                console.error('Erro ao buscar endereço:', error)
-                setEnderecoAutoPreenchido('Endereço não encontrado')
-                setEndereço('')
-            }
-        } else {
-            setEnderecoAutoPreenchido('')
-            setEndereço('')
-        }
-    }
-
-    const validateForm = () => {
-        if (
-            (isPessoaFisicaChecked && cpf) ||
-            (isPessoaJuridicaChecked && cnpj) ||
-            email ||
-            telefone ||
-            endereço ||
-            cep ||
-            numero ||
-            nome
-        ) {
-            setFormCompleted(true)
-        } else {
-            setFormCompleted(false)
-        }
-    }
-
-    const HandleSubmitNext = () => {
-        setShowDateProfissional(true)
-        setShowRegister(false)
-    }
-    const HandleSubmitBack = () => {
-        setShowRegister(true)
-        setShowDateProfissional(false)
-    }
-
-    const HandleSubmitRegister = () => {
-        setShowRegisterConfirmed(true)
-        setShowDateProfissional(false)
-    }
-
-    const handlePessoaFisicaChange = () => {
-        setIsPessoaFisicaChecked(true)
-        setIsPessoaJuridicaChecked(false)
-        validateForm()
-    }
-
-    const handlePessoaJuridicaChange = () => {
-        setIsPessoaJuridicaChecked(true)
-        setIsPessoaFisicaChecked(false)
-        validateForm()
-    }
-
-    const handleInputChange = () => {
-        validateForm()
-    }
-
+    console.log(cpf, cnpj)
     return (
         <Container>
             <div>
@@ -136,7 +82,7 @@ export const Cadastro = () => {
                                 type='text'
                                 width='400px'
                                 value={nome}
-                                onChange={(e) => { setNome(e.target.value); handleInputChange() }}
+                                onChange={(e) => { setNome(e.target.value); }}
                             />
                             <Container3>
                                 <Asterisco />
@@ -148,27 +94,31 @@ export const Cadastro = () => {
                         </ContainerCheckbox>
                         {isPessoaFisicaChecked && (
                             <ContainerInput>
-                                <Input
+                                <MaskedInput
                                     placeholder='CPF'
+                                    mask="999.999.999-99"
                                     type='text'
                                     value={cpf}
-                                    onChange={(e) => { setCPF(e.target.value); handleInputChange() }}
+                                    onChange={(e) => { setCPF(e.target.value); }}
                                     width='400px'
+                                    maxLength={11}
                                 />
                                 <Container3>
                                     <Asterisco />
                                 </Container3>
                             </ContainerInput>
+
                         )}
                         {isPessoaJuridicaChecked && (
                             <ContainerInput>
-                                <Input
+                                <MaskedInput
                                     placeholder='CNPJ'
+                                    mask='99.999.999/9999-99'
                                     type='text'
                                     value={cnpj}
-                                    onChange={(e) => { setCNPJ(e.target.value); handleInputChange() }}
+                                    onChange={(e) => { setCNPJ(e.target.value); }}
                                     width='400px'
-
+                                    maxLength={14}
                                 />
                                 <Container3>
                                     <Asterisco />
@@ -181,7 +131,7 @@ export const Cadastro = () => {
                                 type='email'
                                 width='400px'
                                 value={email}
-                                onChange={(e) => { setEmail(e.target.value); handleInputChange() }}
+                                onChange={(e) => { setEmail(e.target.value); }}
                             />
                             <Container3>
                                 <Asterisco />
@@ -193,7 +143,7 @@ export const Cadastro = () => {
                                 type='text'
                                 width='400px'
                                 value={telefone}
-                                onChange={(e) => { setTelefone(e.target.value); handleInputChange() }}
+                                onChange={(e) => { setTelefone(e.target.value); }}
                             />
                             <Container3>
                                 <Asterisco />
@@ -206,7 +156,7 @@ export const Cadastro = () => {
                             background
                             width='400px'
                             value={endereço}
-                            onChange={(e) => { setEndereço(e.target.value); handleInputChange() }}
+                            onChange={(e) => { setEndereço(e.target.value); }}
                             autoFill={enderecoAutoPreenchido}
                         />
                         <InputCepNumber>
@@ -216,7 +166,7 @@ export const Cadastro = () => {
                                     type='text'
                                     width='200px'
                                     value={cep}
-                                    onChange={(e) => { setCep(e.target.value); handleInputChange(); handleCepChange(e) }}
+                                    onChange={(e) => { setCep(e.target.value);; handleCepChange(e) }}
                                 />
                                 <Container3>
                                     <Asterisco />
@@ -228,7 +178,7 @@ export const Cadastro = () => {
                                     type='text'
                                     width='178px'
                                     value={numero}
-                                    onChange={(e) => { setNumero(e.target.value); handleInputChange() }}
+                                    onChange={(e) => { setNumero(e.target.value); }}
                                 />
                                 <Container3>
                                     <Asterisco />
@@ -239,8 +189,7 @@ export const Cadastro = () => {
                     <ButtonsNextBack
                         name={'Continuar'}
                         iconNext
-                        onClick={HandleSubmitNext}
-                        disabled={!formCompleted}
+                        onClick={handleSubmitNext}
                     />
                 </Container2>
             }
@@ -249,12 +198,12 @@ export const Cadastro = () => {
                     <ContainerRegister>
                         <Logo />
                         <ContainerButton>
-                            <ButtonsNextBack name={'Voltar'} iconBack onClick={HandleSubmitBack} />
+                            <ButtonsNextBack name={'Voltar'} iconBack onClick={handleSubmitBack} />
                         </ContainerButton>
                         <InputSelect placeholder='Profissão' />
                         <InputSelect placeholder='Categoria' />
                         <Textarea placeholder='Observação' />
-                        <ButtonRegister name='Cadastrar-se' onClick={HandleSubmitRegister} />
+                        <ButtonRegister name='Cadastrar-se' onClick={() => { handleSubmitRegister(), cadastrar() }} />
                     </ContainerRegister>
                 </Container2>
             }

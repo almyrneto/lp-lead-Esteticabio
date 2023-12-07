@@ -10,8 +10,8 @@ type InputProps = {
     background?: boolean
     value?: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-    isFocused?: boolean;
-    autoFill?: string;
+    isFocused?: boolean
+    autoFill?: string
 }
 
 export const Input = ({
