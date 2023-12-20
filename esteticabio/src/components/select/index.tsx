@@ -1,9 +1,9 @@
-import { useState } from "react"
 import { colors } from "../../theme"
-import Select, { components } from 'react-select'
+import Select, { ActionMeta, GroupBase, OptionsOrGroups, SingleValue, components } from 'react-select'
 import { styled } from "styled-components";
 import React from "react";
 import { CheckboxContainer, CheckboxStyle } from "./styled";
+
 
 const customStyles = {
     control: (provided: any, state: any) => ({
@@ -64,7 +64,7 @@ const customStyles = {
         textAlign: 'right',
         background: 'none',
         border: 'none',
-        margin: '2rem',
+        marginRight: '1.5rem',
     }
 
 };
@@ -90,11 +90,14 @@ interface StyledSelectProps {
 
 type InputSelectProps = {
     placeholder: string
+    value: OptionType | null,
+    onChange: ((newValue: SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) => void) | undefined
+    options?: OptionsOrGroups<OptionType, GroupBase<OptionType>> | undefined
 }
 
 interface OptionType {
     value: string;
-    label: string;
+    label: string
 }
 
 type ApplyButtonProps = {
@@ -142,27 +145,18 @@ const OptionCheckbox: React.FC<any> = ({ children, ...props }) => {
     )
 }
 
-const options: OptionType[] = [
-    { value: 'esteticista', label: 'Esteticista' },
-    { value: 'salaodebeleza', label: 'Salão de beleza' },
-    { value: 'medico', label: 'Médico' },
-];
 
-export const InputSelect = ({ placeholder }: InputSelectProps) => {
-    const [selectedOptions, setSelectedOptions] = useState<OptionType | null>(null);
+export const InputSelect = ({ placeholder, onChange, options, value }: InputSelectProps) => {
+
     const [isFocused, setIsFocused] = React.useState(false);
-
-    const handleChange = (selected: OptionType | null) => {
-        setSelectedOptions(selected);
-    }
 
     return (
         <StyledSelect isFocused={isFocused}>
             <Select
                 options={options}
                 placeholder={placeholder}
-                value={selectedOptions}
-                onChange={handleChange}
+                value={value}
+                onChange={onChange}
                 styles={customStyles}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}

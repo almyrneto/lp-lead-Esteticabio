@@ -1,4 +1,4 @@
-import { apiService } from "../config/apiService"
+import { apiService, } from "../config/apiService"
 
 
 export const getCadastro = async (
@@ -47,3 +47,5 @@ export const getCadastro = async (
         return { message: 'algo de errado aconteceu' }
     }
 }
+
+

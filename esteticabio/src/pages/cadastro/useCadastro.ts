@@ -1,7 +1,12 @@
 import axios from "axios"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { getCadastro } from "../../service/getCadastro/getCadastro"
+import { parseString } from "xml2js";
 
+interface OptionType {
+    value: string;
+    label: string
+}[]
 
 export const UseCadastro = () => {
     const [showRegister, setShowRegister] = useState(true)
@@ -23,13 +28,25 @@ export const UseCadastro = () => {
     const [bairro, setBairro] = useState('')
     const [municipio, setMunicipio] = useState('')
     const [uf, setUf] = useState('')
+    const [complemento, setComplemento] = useState('')
+    const [profissao, setProfissao] = useState('')
+    const [categoria, setCategoria] = useState([])
+    const teste = categoria?.map(nome => nome)
+    // const teste2 = teste?.map(nome => nome)
+    console.log(teste !== undefined ? teste[0] : '')
+    const [obs, setObs] = useState('')
+    const [selectedOptionsProfissao, setSelectedOptionsProfissao] = useState<OptionType | null>(null);
+    const [selectedOptionsCategoria, setSelectedOptionsCategoria] = useState<OptionType | null>(null);
+    const obsProfissaoCategoria =
+        `Profissão: ${profissao} \n `
+        + `Categoria: ${categoria} \n `
+        + `Observação: ${obs} \n `
     const acao = 'criarLeadWebServiceByLandingPage'
     const hash = '12345'
-    const complemento = ''
     const caixaPostal = ''
     const cdTelefoneTipo = '1'
     const empresa = ''
-    const observacao = ''
+    const observacao = obsProfissaoCategoria
 
     const cadastrar = async () => {
         const result = await getCadastro(
@@ -57,6 +74,28 @@ export const UseCadastro = () => {
             alert('cadastro efetuado com sucesso')
         }
     }
+
+    const fetchCategoria = async (): Promise<OptionType | any> => {
+        try {
+            const result = await axios.get('https://esteticabio.w3erp.com.br/w3erp/pub/WS?hash=12345&&chave=categoria')
+            const response = result.data
+
+            parseString(response, { trim: true }, (err: any, result: any) => {
+                if (err) {
+                    alert(err)
+                } else {
+                    setCategoria(result.resposta.resultado.categoria)
+                }
+            })
+        } catch (error) {
+            alert(error)
+            console.log('estamos no catch');
+        }
+    }
+
+    useEffect(() => {
+        fetchCategoria()
+    }, [])
 
     const validateForm = () => {
         if (
@@ -137,6 +176,21 @@ export const UseCadastro = () => {
         validateForm()
     }
 
+    const handleChangeProfissao = (selected: OptionType | null) => {
+        setSelectedOptionsProfissao(selected);
+
+        const transformString = selected?.value.toString() !== undefined ? selected.value.toString() : '';
+
+        setProfissao(transformString);
+    }
+
+    const handleChangeCategoria = (selected: OptionType | null) => {
+        setSelectedOptionsCategoria(selected);
+
+        const transformString = selected?.value.toString() !== undefined ? selected.value.toString() : '';
+
+        setProfissao(transformString);
+    }
 
     return {
         showRegister,
@@ -169,6 +223,14 @@ export const UseCadastro = () => {
         setFormCompleted,
         enderecoAutoPreenchido,
         setEnderecoAutoPreenchido,
+        complemento,
+        setComplemento,
+        setProfissao,
+        setCategoria,
+        profissao,
+        categoria,
+        obs,
+        setObs,
         handleSubmitNext,
         handleSubmitBack,
         handleSubmitRegister,
@@ -177,6 +239,9 @@ export const UseCadastro = () => {
         handleInputChange,
         handleCepChange,
         cadastrar,
-
+        handleChangeProfissao,
+        handleChangeCategoria,
+        selectedOptionsProfissao,
+        selectedOptionsCategoria,
     }
 }

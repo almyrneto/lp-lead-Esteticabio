@@ -6,7 +6,7 @@ export const Container = styled.div`
     img {
         object-fit: cover;
         width: 100%;
-        height: 969px;
+        height: 959px;
     }
 `
 
@@ -21,7 +21,7 @@ export const ContainerRegister = styled.div`
 export const Container2 = styled.div`
     display: flex;
     flex-direction: column;
-    padding-top: 5rem;
+    padding-top: 3rem;
     margin: 0 auto;
     align-items: end;
 `

@@ -49,6 +49,10 @@ export const Cadastro = () => {
         numero,
         setNumero,
         enderecoAutoPreenchido,
+        complemento,
+        setComplemento,
+        obs,
+        setObs,
         handleSubmitNext,
         handleSubmitBack,
         handleSubmitRegister,
@@ -56,13 +60,14 @@ export const Cadastro = () => {
         handlePessoaJuridicaChange,
         handleCepChange,
         cadastrar,
-
+        handleChangeProfissao,
+        handleChangeCategoria,
+        selectedOptionsProfissao,
+        selectedOptionsCategoria,
+        // profissao,
+        categoria,
     } = UseCadastro()
 
-
-
-
-    console.log(cpf, cnpj)
     return (
         <Container>
             <div>
@@ -107,7 +112,6 @@ export const Cadastro = () => {
                                     <Asterisco />
                                 </Container3>
                             </ContainerInput>
-
                         )}
                         {isPessoaJuridicaChecked && (
                             <ContainerInput>
@@ -138,10 +142,12 @@ export const Cadastro = () => {
                             </Container3>
                         </ContainerInput>
                         <ContainerInput>
-                            <Input
+                            <MaskedInput
                                 placeholder='Telefone'
+                                mask='(99)99999-9999'
                                 type='text'
                                 width='400px'
+                                maxLength={14}
                                 value={telefone}
                                 onChange={(e) => { setTelefone(e.target.value); }}
                             />
@@ -166,7 +172,7 @@ export const Cadastro = () => {
                                     type='text'
                                     width='200px'
                                     value={cep}
-                                    onChange={(e) => { setCep(e.target.value);; handleCepChange(e) }}
+                                    onChange={(e) => { setCep(e.target.value); handleCepChange(e) }}
                                 />
                                 <Container3>
                                     <Asterisco />
@@ -185,6 +191,18 @@ export const Cadastro = () => {
                                 </Container3>
                             </ContainerInput>
                         </InputCepNumber>
+                        <ContainerInput>
+                            <Input
+                                placeholder='Complemento'
+                                type='text'
+                                width='400px'
+                                value={complemento}
+                                onChange={(e) => { setComplemento(e.target.value); }}
+                            />
+                            <Container3>
+                                <Asterisco />
+                            </Container3>
+                        </ContainerInput>
                     </ContainerRegister>
                     <ButtonsNextBack
                         name={'Continuar'}
@@ -200,9 +218,19 @@ export const Cadastro = () => {
                         <ContainerButton>
                             <ButtonsNextBack name={'Voltar'} iconBack onClick={handleSubmitBack} />
                         </ContainerButton>
-                        <InputSelect placeholder='Profissão' />
-                        <InputSelect placeholder='Categoria' />
-                        <Textarea placeholder='Observação' />
+                        <InputSelect
+                            placeholder='Profissão'
+                            value={selectedOptionsProfissao}
+                            options={categoria}
+                            onChange={handleChangeProfissao}
+                        />
+                        <InputSelect
+                            placeholder='Categoria'
+                            value={selectedOptionsCategoria}
+                            options={categoria}
+                            onChange={handleChangeCategoria}
+                        />
+                        <Textarea placeholder='Observação' value={obs} onChange={event => setObs(event.target.value)} />
                         <ButtonRegister name='Cadastrar-se' onClick={() => { handleSubmitRegister(), cadastrar() }} />
                     </ContainerRegister>
                 </Container2>
@@ -219,6 +247,7 @@ export const Cadastro = () => {
                     </ContainerRegister>
                 </Container2>
             }
+
         </Container>
     )
 }
