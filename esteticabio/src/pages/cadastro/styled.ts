@@ -66,3 +66,29 @@ export const Container3 = styled.div`
     position: relative;
     right: 2rem;
 `
+
+export const StyledSelect = styled.select`
+    width: 400px;
+    height: 56px;
+    padding-left: 1rem;
+    border-radius: 16px 16px 0 0;
+    border: 1px solid ${colors.cinza1};
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><path d="M6 6L0 0h12z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px top 50%, center;
+    cursor: pointer;
+
+    &:hover {
+        border-color: ${colors.verdePrincipal};
+    }
+    &:focus {
+        outline: none;
+        border-color: ${colors.verdePrincipal};
+    }
+
+    option {
+        border: 1px solid ${colors.verdePrincipal};
+        appearance: none;
+    }
+`

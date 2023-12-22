@@ -40,13 +40,15 @@ const customStyles = {
     }),
     menu: (provided: any) => ({
         ...provided,
-        height: '130px',
+        height: '180px',
+        maxHeight: '200px',
         borderTop: 'none',
         marginTop: '0',
         borderRadius: '0 0 16px 16px',
         border: `1px solid ${colors.verdePrincipal}`,
         boxShadow: `${colors.boxshadow}`,
         background: `${colors.branco} !important`,
+        overflow: 'auto',
     }),
     option: (provided: any, state: any) => ({
         ...provided,
@@ -69,6 +71,7 @@ const customStyles = {
 
 };
 
+
 const StyledSelect = styled.div <StyledSelectProps>`
     .css-yk16xz-control:hover {
         border-color: ${({ isFocused }: { isFocused?: boolean }) =>
@@ -89,7 +92,7 @@ interface StyledSelectProps {
 }
 
 type InputSelectProps = {
-    placeholder: string
+    placeholder?: React.ReactNode
     value: OptionType | null,
     onChange: ((newValue: SingleValue<OptionType>, actionMeta: ActionMeta<OptionType>) => void) | undefined
     options?: OptionsOrGroups<OptionType, GroupBase<OptionType>> | undefined
@@ -97,7 +100,7 @@ type InputSelectProps = {
 
 interface OptionType {
     value: string;
-    label: string
+    label: string;
 }
 
 type ApplyButtonProps = {
@@ -149,6 +152,7 @@ const OptionCheckbox: React.FC<any> = ({ children, ...props }) => {
 export const InputSelect = ({ placeholder, onChange, options, value }: InputSelectProps) => {
 
     const [isFocused, setIsFocused] = React.useState(false);
+
 
     return (
         <StyledSelect isFocused={isFocused}>

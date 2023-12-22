@@ -64,7 +64,7 @@ export const Cadastro = () => {
         handleChangeCategoria,
         selectedOptionsProfissao,
         selectedOptionsCategoria,
-        // profissao,
+        profissao,
         categoria,
     } = UseCadastro()
 
@@ -220,13 +220,13 @@ export const Cadastro = () => {
                         </ContainerButton>
                         <InputSelect
                             placeholder='Profissão'
-                            value={selectedOptionsProfissao}
-                            options={categoria}
+                            value={selectedOptionsProfissao ? { label: selectedOptionsProfissao.label, value: selectedOptionsProfissao.value } : null}
+                            options={profissao}
                             onChange={handleChangeProfissao}
                         />
                         <InputSelect
                             placeholder='Categoria'
-                            value={selectedOptionsCategoria}
+                            value={selectedOptionsCategoria ? { label: selectedOptionsCategoria.label, value: selectedOptionsCategoria.value } : null}
                             options={categoria}
                             onChange={handleChangeCategoria}
                         />

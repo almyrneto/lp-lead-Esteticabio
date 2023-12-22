@@ -1,12 +1,10 @@
 import axios from "axios"
 import { ChangeEvent, useEffect, useState } from "react"
 import { getCadastro } from "../../service/getCadastro/getCadastro"
-import { parseString } from "xml2js";
 
-interface OptionType {
-    value: string;
-    label: string
-}[]
+type OptionType<T = { value: string; label: string }> = T;
+
+type OptionProfissaoType<T = { value: string; label: string }> = T;
 
 export const UseCadastro = () => {
     const [showRegister, setShowRegister] = useState(true)
@@ -29,18 +27,15 @@ export const UseCadastro = () => {
     const [municipio, setMunicipio] = useState('')
     const [uf, setUf] = useState('')
     const [complemento, setComplemento] = useState('')
-    const [profissao, setProfissao] = useState('')
-    const [categoria, setCategoria] = useState([])
-    const teste = categoria?.map(nome => nome)
-    // const teste2 = teste?.map(nome => nome)
-    console.log(teste !== undefined ? teste[0] : '')
+    const [profissao, setProfissao] = useState<OptionType[]>([])
+    const [categoria, setCategoria] = useState<OptionType[]>([])
     const [obs, setObs] = useState('')
-    const [selectedOptionsProfissao, setSelectedOptionsProfissao] = useState<OptionType | null>(null);
-    const [selectedOptionsCategoria, setSelectedOptionsCategoria] = useState<OptionType | null>(null);
+    const [selectedOptionsProfissao, setSelectedOptionsProfissao] = useState<OptionType | ''>('');
+    const [selectedOptionsCategoria, setSelectedOptionsCategoria] = useState<OptionType | ''>('');
     const obsProfissaoCategoria =
-        `Profissão: ${profissao} \n `
-        + `Categoria: ${categoria} \n `
-        + `Observação: ${obs} \n `
+        `Profissão: ${typeof selectedOptionsProfissao === 'object' ? selectedOptionsProfissao.label : ''} \n `
+        + `Categoria: ${typeof selectedOptionsCategoria === 'object' ? selectedOptionsCategoria.label : ''} \n `
+        + `Observação: ${obs} \n `;
     const acao = 'criarLeadWebServiceByLandingPage'
     const hash = '12345'
     const caixaPostal = ''
@@ -80,21 +75,47 @@ export const UseCadastro = () => {
             const result = await axios.get('https://esteticabio.w3erp.com.br/w3erp/pub/WS?hash=12345&&chave=categoria')
             const response = result.data
 
-            parseString(response, { trim: true }, (err: any, result: any) => {
-                if (err) {
-                    alert(err)
-                } else {
-                    setCategoria(result.resposta.resultado.categoria)
-                }
-            })
+            const parse = new DOMParser()
+            const xml = parse.parseFromString(response, 'text/xml')
+            const categorias = xml.querySelectorAll('categoria')
+
+            const categoriasOptions: OptionType<{ value: string; label: string }>[] = Array.from(categorias).map((categoria) => ({
+                value: categoria.querySelector('codigo')?.textContent || '',
+                label: categoria.querySelector('nome')?.textContent || '',
+            }));
+            return categoriasOptions
         } catch (error) {
             alert(error)
-            console.log('estamos no catch');
+        }
+    }
+
+    const fetchProfissao = async (): Promise<OptionProfissaoType | any> => {
+        try {
+            const result = await axios.get('https://esteticabio.w3erp.com.br/w3erp/pub/WS?hash=12345&&chave=clienteprofissao')
+            const response = result.data
+
+            const parse = new DOMParser()
+            const xml = parse.parseFromString(response, 'text/xml')
+            const profissoes = xml.querySelectorAll('clienteprofissao')
+
+            const profissaoOptions: OptionType<{ value: string; label: string }>[] = Array.from(profissoes).map((profissao) => ({
+                value: profissao.querySelector('codigo')?.textContent || '',
+                label: profissao.querySelector('nome')?.textContent || '',
+            }));
+            return profissaoOptions
+
+        } catch (error) {
+            alert(error)
         }
     }
 
     useEffect(() => {
-        fetchCategoria()
+        fetchCategoria().then((categoriasOptions) => {
+            setCategoria(categoriasOptions)
+        })
+        fetchProfissao().then((profissaoOptions) => {
+            setProfissao(profissaoOptions)
+        })
     }, [])
 
     const validateForm = () => {
@@ -177,19 +198,18 @@ export const UseCadastro = () => {
     }
 
     const handleChangeProfissao = (selected: OptionType | null) => {
-        setSelectedOptionsProfissao(selected);
+        if (selected) {
+            setSelectedOptionsProfissao(selected || '');
+        }
 
-        const transformString = selected?.value.toString() !== undefined ? selected.value.toString() : '';
 
-        setProfissao(transformString);
     }
 
     const handleChangeCategoria = (selected: OptionType | null) => {
-        setSelectedOptionsCategoria(selected);
+        if (selected) {
+            setSelectedOptionsCategoria(selected || '');
+        }
 
-        const transformString = selected?.value.toString() !== undefined ? selected.value.toString() : '';
-
-        setProfissao(transformString);
     }
 
     return {
