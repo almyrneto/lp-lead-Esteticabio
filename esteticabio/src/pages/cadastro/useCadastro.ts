@@ -62,6 +62,24 @@ export const UseCadastro = () => {
             cdTelefoneTipo,
             empresa,
         )
+        console.log('Dados enviados para o servidor:', {
+            acao,
+            nome,
+            hash,
+            email,
+            observacao,
+            cep,
+            logradouro,
+            numero,
+            complemento,
+            bairro,
+            uf,
+            municipio,
+            caixaPostal,
+            telefone,
+            cdTelefoneTipo,
+            empresa,
+        });
 
         if (result?.message) {
             alert(result.message)
@@ -119,10 +137,14 @@ export const UseCadastro = () => {
     }, [])
 
     const validateForm = () => {
+        const isCpfValid = isPessoaFisicaChecked && validateCpf(cpf);
+        const isCnpjValid = isPessoaJuridicaChecked && validateCnpj(cnpj)
+        const isEmailValid = validateEmail(email)
+
         if (
-            (isPessoaFisicaChecked && cpf) ||
-            (isPessoaJuridicaChecked && cnpj) &&
-            email &&
+            ((isPessoaFisicaChecked && isCpfValid) ||
+                (isPessoaJuridicaChecked && isCnpjValid)) &&
+            isEmailValid &&
             telefone &&
             endereço &&
             cep &&
@@ -137,6 +159,72 @@ export const UseCadastro = () => {
             alert('todos os campos sao obrigatorios')
         }
     }
+
+    const validateEmail = (email: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email)
+    }
+
+    const validateCpf = (cpf: string): boolean => {
+        const cleanCpf = cpf.replace(/\D/g, '')
+
+        if (cleanCpf.length !== 11) {
+            return false
+        }
+
+        if (/^(\d)\1+$/.test(cleanCpf)) {
+            return false;
+        }
+
+        let sum = 0
+        for (let i = 0; i < 9; i++) {
+            sum += parseInt(cleanCpf.charAt(i)) * (10 - i)
+        }
+
+        let remainder = sum % 11
+        const digit1 = remainder < 2 ? 0 : 11 - remainder
+
+        sum = 0;
+        for (let i = 0; i < 10; i++) {
+            sum += parseInt(cleanCpf.charAt(i)) * (11 - i)
+        }
+
+        remainder = sum % 11;
+        const digit2 = remainder < 2 ? 0 : 11 - remainder;
+
+        return digit1 === parseInt(cleanCpf.charAt(9)) && digit2 === parseInt(cleanCpf.charAt(10))
+
+    }
+
+    const validateCnpj = (cnpj: string): boolean => {
+        const cleanCnpj = cnpj.replace(/\D/g, '');
+
+        if (cleanCnpj.length !== 14) {
+            return false;
+        }
+
+        let sum = 0;
+        let factor = 5;
+        for (let i = 0; i < 12; i++) {
+            sum += parseInt(cleanCnpj.charAt(i)) * factor;
+            factor = factor === 2 ? 9 : factor - 1;
+        }
+
+        let remainder = sum % 11;
+        const digit1 = remainder < 2 ? 0 : 11 - remainder;
+
+        sum = 0;
+        factor = 6;
+        for (let i = 0; i < 13; i++) {
+            sum += parseInt(cleanCnpj.charAt(i)) * factor;
+            factor = factor === 2 ? 9 : factor - 1;
+        }
+
+        remainder = sum % 11;
+        const digit2 = remainder < 2 ? 0 : 11 - remainder;
+
+        return digit1 === parseInt(cleanCnpj.charAt(12)) && digit2 === parseInt(cleanCnpj.charAt(13));
+    };
 
     const handleCepChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const cepValue = e.target.value
@@ -198,18 +286,13 @@ export const UseCadastro = () => {
     }
 
     const handleChangeProfissao = (selected: OptionType | null) => {
-        if (selected) {
-            setSelectedOptionsProfissao(selected || '');
-        }
-
-
+        console.log('Opção selecionada (Profissão):', selected);
+        setSelectedOptionsProfissao(selected || '');
     }
 
     const handleChangeCategoria = (selected: OptionType | null) => {
-        if (selected) {
-            setSelectedOptionsCategoria(selected || '');
-        }
-
+        console.log('Opção selecionada (Categoria):', selected);
+        setSelectedOptionsCategoria(selected || '');
     }
 
     return {
