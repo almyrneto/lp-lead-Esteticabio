@@ -62,24 +62,6 @@ export const UseCadastro = () => {
             cdTelefoneTipo,
             empresa,
         )
-        console.log('Dados enviados para o servidor:', {
-            acao,
-            nome,
-            hash,
-            email,
-            observacao,
-            cep,
-            logradouro,
-            numero,
-            complemento,
-            bairro,
-            uf,
-            municipio,
-            caixaPostal,
-            telefone,
-            cdTelefoneTipo,
-            empresa,
-        });
 
         if (result?.message) {
             alert(result.message)
@@ -286,12 +268,10 @@ export const UseCadastro = () => {
     }
 
     const handleChangeProfissao = (selected: OptionType | null) => {
-        console.log('Opção selecionada (Profissão):', selected);
         setSelectedOptionsProfissao(selected || '');
     }
 
     const handleChangeCategoria = (selected: OptionType | null) => {
-        console.log('Opção selecionada (Categoria):', selected);
         setSelectedOptionsCategoria(selected || '');
     }
 
