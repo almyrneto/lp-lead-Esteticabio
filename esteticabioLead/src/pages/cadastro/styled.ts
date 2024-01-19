@@ -30,6 +30,10 @@ export const InputCepNumber = styled.div`
     display: flex;
     gap: 0.5rem;
 `
+export const InputDataTel = styled.div`
+    display: flex;
+    gap: 0.5rem;
+`
 
 export const ContainerCheckbox = styled.div`
     width: 400px;
@@ -91,4 +95,8 @@ export const StyledSelect = styled.select`
         border: 1px solid ${colors.verdePrincipal};
         appearance: none;
     }
+`
+export const ButtonContainer = styled.div`
+    margin-right: 9rem;
+    margin-top: 1.5rem;
 `

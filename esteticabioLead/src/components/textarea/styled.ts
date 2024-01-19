@@ -9,7 +9,7 @@ export const TextareaStyle = styled.textarea.attrs(() => ({
     as: "textarea",
 })) <StyledProps>`
     width: 400px;
-    height: 103px;
+    height: 67px;
     border-radius: 16px;
     border: 1px solid ${(props) => (props.isFocused ? colors.verdePrincipal : colors.cinza1)};
     box-shadow: ${colors.boxshadow};

@@ -33,9 +33,9 @@ export const UseCadastro = () => {
     const [selectedOptionsProfissao, setSelectedOptionsProfissao] = useState<OptionType | ''>('');
     const [selectedOptionsCategoria, setSelectedOptionsCategoria] = useState<OptionType | ''>('');
     const obsProfissaoCategoria =
-        `Profissão: ${typeof selectedOptionsProfissao === 'object' ? selectedOptionsProfissao.label : ''} \n `
-        + `Categoria: ${typeof selectedOptionsCategoria === 'object' ? selectedOptionsCategoria.label : ''} \n `
-        + `Observação: ${obs} \n `;
+        `Profissão: ${typeof selectedOptionsProfissao === 'object' ? selectedOptionsProfissao.label : ''}\n`
+        + `Categoria: ${typeof selectedOptionsCategoria === 'object' ? selectedOptionsCategoria.label : ''}\n`
+        + `Observação: ${obs}\n`;
     const acao = 'criarLeadWebServiceByLandingPage'
     const hash = '12345'
     const caixaPostal = ''
@@ -44,12 +44,14 @@ export const UseCadastro = () => {
     const observacao = obsProfissaoCategoria
 
     const cadastrar = async () => {
+        const observacaoFormatada = observacao.replace(/\n/g, '\n');
+
         const result = await getCadastro(
             acao,
             nome,
             hash,
             email,
-            observacao,
+            observacaoFormatada,
             cep,
             logradouro,
             numero,
