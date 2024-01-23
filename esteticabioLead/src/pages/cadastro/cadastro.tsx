@@ -142,9 +142,6 @@ export const Cadastro = () => {
                                 value={complemento}
                                 onChange={(e) => { setComplemento(e.target.value); }}
                             />
-                            <Container3>
-                                <Asterisco />
-                            </Container3>
                         </ContainerInput>
                         <ContainerInput>
                             <Textarea

@@ -56,7 +56,6 @@ export const UseCadastro = () => {
         if (result?.message) {
             alert(result.message)
         } else {
-            alert('cadastro efetuado com sucesso')
         }
     }
 

@@ -62,7 +62,7 @@ export const getCadastro = async (
         });
         if (result.status === 200) {
             console.debug('Resposta da API:', result.data);
-            return { message: 'sucesso' }
+
         }
     } catch (error) {
         console.error('Erro ao chamar a API:', error);
