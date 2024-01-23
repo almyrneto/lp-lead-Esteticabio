@@ -1,6 +1,6 @@
 import Logo from '../../assets/icons/Logo'
 import { ButtonRegister } from '../../components/buttonRegister'
-import { CepInput, EndInput, Input } from '../../components/input'
+import { CepInput, DateInput, EndInput, Input } from '../../components/input'
 import { Subtitulo } from '../../components/subtitulo'
 import {
     ButtonContainer,
@@ -40,6 +40,8 @@ export const Cadastro = () => {
         handleSubmitRegister,
         handleCepChange,
         cadastrar,
+        data,
+        setData,
     } = UseCadastro()
 
     return (
@@ -78,10 +80,10 @@ export const Cadastro = () => {
                         </ContainerInput>
                         <InputDataTel>
                             <ContainerInput>
-                                <Input
+                                <DateInput
                                     type='date'
-                                    placeholder='data'
-                                    width='175px'
+                                    value={data}
+                                    onChange={(e) => { setData(e.target.value); }}
                                 />
                             </ContainerInput>
                             <ContainerInput>

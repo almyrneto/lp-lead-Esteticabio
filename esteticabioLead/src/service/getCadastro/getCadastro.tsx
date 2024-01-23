@@ -18,6 +18,7 @@ export const getCadastro = async (
     telefone: string,
     cdTelefoneTipo: string,
     empresa: string,
+    cdAtividadeTipo: string,
 ): Promise<{ message: string } | undefined> => {
     try {
         const result = await apiService.get('pub/process/IntegracaoWebservice', {
@@ -38,6 +39,7 @@ export const getCadastro = async (
                 telefone,
                 cdTelefoneTipo,
                 empresa,
+                cdAtividadeTipo
             },
         })
         console.debug('Dados antes do envio para a API:', {

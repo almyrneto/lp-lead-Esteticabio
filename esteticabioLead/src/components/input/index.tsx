@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { EndInputStyle, InputStyle } from "./styled"
+import { DateInputStyle, EndInputStyle, InputStyle } from "./styled"
 import { colors } from "../../theme"
 
 type InputProps = {
@@ -21,6 +21,12 @@ type TextInputProps = {
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
     isFocused?: boolean
     autoFill?: string
+}
+
+type DateInputProps = {
+    type: string
+    value: string
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Input = ({
@@ -103,6 +109,19 @@ export const CepInput = ({
                 onChange={onChange}
                 background={background}
                 value={value}
+            />
+        </>
+    )
+}
+
+export const DateInput = ({ type, value, onChange }: DateInputProps) => {
+
+    return (
+        <>
+            <DateInputStyle
+                type={type}
+                value={value}
+                onChange={onChange}
             />
         </>
     )

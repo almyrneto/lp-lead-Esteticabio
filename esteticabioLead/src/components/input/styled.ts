@@ -46,3 +46,29 @@ export const EndInputStyle = styled.textarea`
         color: ${colors.cinza};
     }
 `
+
+export const DateInputStyle = styled.input`
+    width: 175px;
+    height: 67px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 16px;
+    border: 1px solid ${colors.cinza1};
+    box-shadow: ${colors.boxshadow};
+    font-size: 16px;
+    font-weight: 500px;
+    background-color: white;
+    background-repeat: no-repeat;
+
+    &:focus {
+        border-color: ${colors.verdePrincipal} !important;
+        outline: none;
+    }
+
+`
+
+export const CalendarIconStyle = styled.div`
+    position: relative;
+    right: 2.5rem;
+`
+
