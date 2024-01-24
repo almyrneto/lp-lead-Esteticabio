@@ -65,10 +65,12 @@ export const DateInputStyle = styled.input`
         outline: none;
     }
 
+    @media screen and (-webkit-min-device-pixel-ratio:0) and (min-width:0) {
+    &::-webkit-input-placeholder {
+      color: ${colors.cinza}; 
+    }
+  }
+
 `
 
-export const CalendarIconStyle = styled.div`
-    position: relative;
-    right: 2.5rem;
-`
 

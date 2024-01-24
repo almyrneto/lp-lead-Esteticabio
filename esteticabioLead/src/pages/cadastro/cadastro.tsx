@@ -86,6 +86,7 @@ export const Cadastro = () => {
                         <InputDataTel>
                             <ContainerInput>
                                 <DateInput
+                                    placeholder='Data'
                                     type='date'
                                     value={data}
                                     onChange={(e) => { setData(e.target.value); }}

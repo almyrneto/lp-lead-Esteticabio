@@ -27,6 +27,7 @@ type DateInputProps = {
     type: string
     value: string
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    placeholder: string
 }
 
 export const Input = ({
@@ -114,7 +115,7 @@ export const CepInput = ({
     )
 }
 
-export const DateInput = ({ type, value, onChange }: DateInputProps) => {
+export const DateInput = ({ type, value, onChange, placeholder }: DateInputProps) => {
 
     return (
         <>
@@ -122,6 +123,7 @@ export const DateInput = ({ type, value, onChange }: DateInputProps) => {
                 type={type}
                 value={value}
                 onChange={onChange}
+                placeholder={placeholder}
             />
         </>
     )
