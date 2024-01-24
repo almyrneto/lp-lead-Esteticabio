@@ -98,7 +98,7 @@ export const UseCadastro = () => {
 
                 const enderecoCompleto = `${logradouro}, ${bairro}, ${localidade}, ${uf}`
                 setLogradouro(logradouro)
-                setMunicipio(municipio)
+                setMunicipio(localidade)
                 setBairro(bairro)
                 setUf(uf)
                 setEnderecoAutoPreenchido(enderecoCompleto)
