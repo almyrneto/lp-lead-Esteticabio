@@ -25,10 +25,10 @@ export const UseCadastro = () => {
     const acao = 'criarLeadWebServiceByLandingPage'
     const hash = '12345'
     const caixaPostal = '97685'
-    const cdTelefoneTipo = '1'
+    const cdtelefonetipo = '1'
     const empresa = ''
     const observacao = obsProfissaoCategoria
-    const cdAtividadeTipo = '200'
+    const cdatividadetipo = '200'
 
     const cadastrar = async () => {
         const observacaoFormatada = observacao.replace(/\n/g, '\n');
@@ -48,9 +48,9 @@ export const UseCadastro = () => {
             municipio,
             caixaPostal,
             telefone,
-            cdTelefoneTipo,
+            cdtelefonetipo,
             empresa,
-            cdAtividadeTipo,
+            cdatividadetipo,
         )
 
         if (result?.message) {

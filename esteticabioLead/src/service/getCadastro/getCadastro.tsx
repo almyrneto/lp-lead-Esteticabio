@@ -16,9 +16,9 @@ export const getCadastro = async (
     municipio: string,
     caixaPostal: string,
     telefone: string,
-    cdTelefoneTipo: string,
+    cdtelefonetipo: string,
     empresa: string,
-    cdAtividadeTipo: string,
+    cdatividadetipo: string,
 ): Promise<{ message: string } | undefined> => {
     try {
         const result = await apiService.get('pub/process/IntegracaoWebservice', {
@@ -37,9 +37,9 @@ export const getCadastro = async (
                 municipio,
                 caixaPostal,
                 telefone,
-                cdTelefoneTipo,
+                cdtelefonetipo,
                 empresa,
-                cdAtividadeTipo
+                cdatividadetipo
             },
         })
         console.debug('Dados antes do envio para a API:', {
@@ -57,8 +57,9 @@ export const getCadastro = async (
             municipio,
             caixaPostal,
             telefone,
-            cdTelefoneTipo,
+            cdtelefonetipo,
             empresa,
+            cdatividadetipo
         });
         if (result.status === 200) {
             console.debug('Resposta da API:', result.data);
