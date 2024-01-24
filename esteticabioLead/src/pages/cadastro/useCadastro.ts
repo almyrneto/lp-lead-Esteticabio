@@ -33,6 +33,10 @@ export const UseCadastro = () => {
     const cadastrar = async () => {
         const observacaoFormatada = observacao.replace(/\n/g, '\n');
 
+        const currentDate = new Date();
+
+        const formattedDate = currentDate.toISOString().split('T')[0]
+
         const result = await getCadastro(
             acao,
             nome,
@@ -51,11 +55,17 @@ export const UseCadastro = () => {
             cdtelefonetipo,
             empresa,
             cdatividadetipo,
+            formattedDate,
         )
 
         if (result?.message) {
             alert(result.message)
         } else {
+        }
+
+        return {
+            data,
+            setData,
         }
     }
 

@@ -1,6 +1,6 @@
 import Logo from '../../assets/icons/Logo'
 import { ButtonRegister } from '../../components/buttonRegister'
-import { CepInput, DateInput, EndInput, Input } from '../../components/input'
+import { CepInput, EndInput, Input } from '../../components/input'
 import { Subtitulo } from '../../components/subtitulo'
 import {
     ButtonContainer,
@@ -11,7 +11,6 @@ import {
     ContainerRegister,
     ContentLogo,
     InputCepNumber,
-    InputDataTel,
     Title,
     Title2,
 } from './styled'
@@ -45,8 +44,6 @@ export const Cadastro = () => {
         handleSubmitRegister,
         handleCepChange,
         cadastrar,
-        data,
-        setData,
     } = UseCadastro()
 
     return (
@@ -83,30 +80,20 @@ export const Cadastro = () => {
                                 <Asterisco />
                             </Container3>
                         </ContainerInput>
-                        <InputDataTel>
-                            <ContainerInput>
-                                <DateInput
-                                    placeholder='Data'
-                                    type='date'
-                                    value={data}
-                                    onChange={(e) => { setData(e.target.value); }}
-                                />
-                            </ContainerInput>
-                            <ContainerInput>
-                                <MaskedInput
-                                    placeholder='Telefone'
-                                    mask='(99)99999-9999'
-                                    type='text'
-                                    width='209px'
-                                    maxLength={14}
-                                    value={telefone}
-                                    onChange={(e) => { setTelefone(e.target.value); }}
-                                />
-                                <Container3>
-                                    <Asterisco />
-                                </Container3>
-                            </ContainerInput>
-                        </InputDataTel>
+                        <ContainerInput>
+                            <MaskedInput
+                                placeholder='Telefone'
+                                mask='(99)99999-9999'
+                                type='text'
+                                width='400px'
+                                maxLength={14}
+                                value={telefone}
+                                onChange={(e) => { setTelefone(e.target.value); }}
+                            />
+                            <Container3>
+                                <Asterisco />
+                            </Container3>
+                        </ContainerInput>
                         <EndInput
                             placeholder='Endereço'
                             desabilitar
