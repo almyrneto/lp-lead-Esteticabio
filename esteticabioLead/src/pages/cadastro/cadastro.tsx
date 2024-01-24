@@ -9,17 +9,22 @@ import {
     Container3,
     ContainerInput,
     ContainerRegister,
+    ContentLogo,
     InputCepNumber,
     InputDataTel,
+    Title,
+    Title2,
 } from './styled'
 import { Textarea } from '../../components/textarea'
 import Asterisco from '../../assets/icons/Asterisco'
 import { UseCadastro } from './useCadastro'
 import { MaskedInput } from '../../components/maskedInput'
+import Confirmed from '../../assets/icons/Confirmed'
 
 export const Cadastro = () => {
     const {
         showRegister,
+        showRegisterConfirmed,
         nome,
         setNome,
         email,
@@ -155,6 +160,18 @@ export const Cadastro = () => {
                             name='Cadastrar-se'
                             onClick={() => { handleSubmitRegister(), cadastrar() }} />
                     </ButtonContainer>
+                </Container2>
+            }
+            {showRegisterConfirmed &&
+                <Container2>
+                    <ContainerRegister>
+                        <ContentLogo>
+                            <Logo />
+                        </ContentLogo>
+                        <Title>Obrigada por se cadastrar!</Title>
+                        <Title2>Entraremos em contato assim que possivel.</Title2>
+                        <Confirmed />
+                    </ContainerRegister>
                 </Container2>
             }
         </Container>

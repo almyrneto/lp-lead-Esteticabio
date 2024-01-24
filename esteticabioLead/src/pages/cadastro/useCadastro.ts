@@ -118,6 +118,7 @@ export const UseCadastro = () => {
 
     const handleSubmitRegister = () => {
         setShowRegisterConfirmed(true)
+        setShowRegister(false)
     }
 
     const handleInputChange = () => {
